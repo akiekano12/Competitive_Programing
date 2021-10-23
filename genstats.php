@@ -141,6 +141,21 @@ function main(?int $argc, ?array $argv): int
 	if ($ret)
 		file_put_contents(__DIR__."/README.md", $readmeStub);
 
+	$indexStub = file_get_contents(__DIR__."/web/public/index.stub.html");
+	$ret |= genstats_codewars(
+		$indexStub,
+		__DIR__."/Codewars",
+		__DIR__."/.stats_hash/Codewars.lock"
+	);
+	$ret |= genstats_toki(
+		$indexStub,
+		__DIR__."/Toki",
+		__DIR__."/.stats_hash/Toki.lock"
+	);
+	var_dump($ret);
+	if ($ret)
+		file_put_contents(__DIR__."/web/public/index.html", $indexStub);
+
 	return 0;
 out_usage:
 	printf("Usage: php %s\n", $argv[0]);
