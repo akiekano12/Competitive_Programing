@@ -66,7 +66,9 @@ function code_chk(string $dir)
 		$f = $dir."/".$f;
 		if (is_dir($f))
 			$ret |= code_chk($f);
-		else if (preg_match("/\.(c|cpp|py|asm|go|php|s)$/i", $f)) {
+		else if (preg_match("/\.([a-z]{1,8})$/i", $f, $m)) {
+			if ($m[1] === "txt")
+				continue;
 			$ret |= !_code_chk($f);
 		}
 	}
